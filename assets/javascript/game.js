@@ -19,7 +19,7 @@ document.addEventListener("keydown",function whenKeyPressed(event){
     userLetter = String.fromCharCode(x);
     //if you haven't already selected the psychicLetter, do, via math.random and the letter options array. Confirm that letterSet
     if(letterSet==false){
-        psychicLetter += letterOptions[Math.floor(Math.random() * letterOptions.length)];
+        psychicLetter = letterOptions[Math.floor(Math.random()*letterOptions.length)];
         letterSet =true;
     }
     //if the user and psychic letters match, you win! +1 win and the game resets
@@ -30,15 +30,15 @@ document.addEventListener("keydown",function whenKeyPressed(event){
         $("#left").html("Guesses Left: " + guessesLeft);
         guessesSoFar = "";
         $("#sofar").html("Your Guesses So Far: "+guessesSoFar);
-        letterSet == false;
+        letterSet = false;
     } 
     //otherwise(if the guess was wrong), you're down a guess!
     else {
-        guessesLeft-1;
+        guessesLeft = guessesLeft - 1;
         //if you don't have any more guesses left, you lose! +1 loss and the game resets
         if (guessesLeft==0){
             losses++;
-            $("#loss").html("Losses: " + wins); 
+            $("#lose").html("Losses: " + losses); 
             guessesLeft=9;
             $("#left").html("Guesses Left: " + guessesLeft);
             guessesSoFar="";
@@ -47,6 +47,7 @@ document.addEventListener("keydown",function whenKeyPressed(event){
         }
         //otherwise, you can try again. Display guesses you've made so far
         else{  
+            $("#left").html("Guesses Left: " + guessesLeft)
             guessesSoFar = guessesSoFar.concat(userLetter);
             $("#sofar").html("Your Guesses So Far: "+ guessesSoFar);
         }
