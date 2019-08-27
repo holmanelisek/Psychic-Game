@@ -6,17 +6,42 @@ var userLetter = "";
 var wins = 0;
 var losses = 0;
 var guessesLeft = 9;
-var guessesSoFar = 0;
-var letterOptions = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+var guessesSoFar = "";
+var letterOptions = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 var letterSet = false;
 
 
 
 document.addEventListener("keydown",function whenKeyPressed(event){
     var x = event.which || event.keyCode;
-    userguess = String.fromCharCode(x);
-    userLetter = userguess.tolowercase();
-    
+    userLetter = String.fromCharCode(x);
+    if(letterSet==false){
+        psychicLetter += letterOptions[Math.floor(Math.random() * letterOptions.length)];
+        letterSet =true;
+    }
+    if(userLetter==psychicLetter){
+        wins++;
+        $("#win").html("Wins: " + wins);
+        guessesLeft = 9;
+        $("#left").html("Guesses Left: " + guessesLeft);
+        guessesSoFar = "";
+        $("#sofar").html("Your Guesses So Far: "+guessesSoFar);
+        letterSet == false;
+    } else {
+        guessesLeft-1;
+        if (guessesLeft==0){
+            losses++;
+            $("#loss").html("Losses: " + wins); 
+            guessesLeft=9;
+            $("#left").html("Guesses Left: " + guessesLeft);
+            guessesSoFar="";
+            $("#sofar").html("Your Guesses So Far: "+ guessesSoFar);
+            letterSet=false;
+        }else{  
+            guessesSoFar = guessesSoFar.concat(userLetter);
+            $("#sofar").html("Your Guesses So Far: "+ guessesSoFar);
+        }
+    }
 });
 
 
